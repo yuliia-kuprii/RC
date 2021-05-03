@@ -19,7 +19,7 @@ input[type=text], input[type=button] {
     border-radius: 3rem;
     font-size: 3rem;
     text-align: center;
-    white-space: initial !important;
+    white-space: normal !important;
     word-break: break-all;
 }
 
