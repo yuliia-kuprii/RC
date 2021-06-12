@@ -6,18 +6,26 @@ PROJECT_NAME.focus();
 actionsMakeWithProjectInput(PROJECT_NAME)
 
 
+function addListenerToRedirectProjectDetails(projectNameButton) {
+    projectNameButton.addEventListener("click", redirectToProjectDetails)
+}
+
+function redirectToProjectDetails() {
+    window.location.href = "./project-details.html"
+}
 
 function projectNameChangeToButton(event) {
-    projectEntityChildren(event)
+    const {input, saveButton, cancelButton} = projectEntityChildren(event);
     actionsMakeWithProjectButtons(saveButton, cancelButton)
     if (event.keyCode === 13 && input.type === "text" && validateInput(input.value)) {
+        event.preventDefault();
         actionsForProjectInput(input);
         removeActionButtons(saveButton, cancelButton);        
     }
 }
 
 function saveProjectNameWithButton(event){
-    projectEntityChildren(event);
+    const {input, saveButton, cancelButton} = projectEntityChildren(event);
     if (input.type === "text" && validateInput(input.value)) {
         actionsForProjectInput(input);
         removeActionButtons(saveButton, cancelButton);
@@ -25,14 +33,8 @@ function saveProjectNameWithButton(event){
 }
 
 function clearProjectName(event) {
-    projectEntityChildren(event);
-    /*
-    return { sb: saveEl, cb: canEl, i: inputEl} 
-    */
-    // const {input, saveButton, cancelButton} = dictChildren
-    // const { sb, cb, i } = fun(cancelButton)
+    const {input, saveButton, cancelButton} = projectEntityChildren(event);
     input.value = "";
-    console.log(input)
     input.focus();
 }
 
@@ -40,12 +42,11 @@ function projectEntityChildren(event){
     const childElement = event.target;
     const parentElement = childElement.parentElement;
     const parentAllChildren = parentElement.children;
-    const dictChildren = {
+    return {
         input: parentAllChildren[0],
         saveButton: parentAllChildren[1],
         cancelButton: parentAllChildren[2],
     }
-    return {input, saveButton, cancelButton} = dictChildren
 }
 
 function validateInput(value) {
@@ -58,7 +59,7 @@ function validateInput(value) {
 }
 
 function preventExtraLetterInput(event) {
-    projectEntityChildren(event)
+    const {input, saveButton, cancelButton} = projectEntityChildren(event);
     const value = input.value;
     if(value.length >= 71){
         const cuttedNameString = value.substring(0, 70);
@@ -68,11 +69,13 @@ function preventExtraLetterInput(event) {
 
 function actionsForProjectInput(input){
     input.type = "button";
+    addListenerToRedirectProjectDetails(input)
     const newInput = addNewProjectName(input.id);
     setTimeout(() => {
         newInput.focus();
     }, 0)
 }
+
 
 function actionsMakeWithProjectButtons(saveButton, cancelButton){
     saveButton.addEventListener("click", saveProjectNameWithButton);
@@ -93,6 +96,9 @@ function addNewProjectName(prevInputId) {
     const li = document.createElement("li");
     const input = document.createElement("input");
     const newId = createNewProjectId(prevInputId);
+    li.className = "table-row-inputs"
+    input.className = "inputs-data"
+    input.autocomplete = "off"
     input.id = newId;
     input.type = "text";
     input.placeholder = "project name";
@@ -107,10 +113,12 @@ function addNewProjectName(prevInputId) {
 function addActionButtons(li){
     const saveButton = document.createElement("button");
     const cancelButton = document.createElement("button");
+    saveButton.className = "action-buttons";
+    cancelButton.className = "secondary-action-buttons";
     saveButton.type = "button";
     cancelButton.type = "button";
     saveButton.textContent = "SAVE";
-    cancelButton.textContent = "CANCEL";
+    cancelButton.textContent = "CLEAR";
     saveButton.id = "save-button";
     cancelButton.id = "cancel-button";
     li.appendChild(saveButton);

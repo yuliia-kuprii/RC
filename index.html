@@ -4,22 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css_styles/styles.css">
-    <script src="./js_files/action.js" defer></script>
+    <link rel="stylesheet" href="./css_styles/reset.css">
+    <link rel="stylesheet" href="./css_styles/index.css">
+    <link rel="stylesheet" href="css_styles/project-details.css">
+    <script src="./js_files/index.js" defer></script>
     <title>RC</title>
 </head>
-<body>
-    <h1>RC</h1>
+    <body>
+        <h1>Release Candidate</h1>
 
-<p>Folders with project names</p>
-    <form id="project-form">
-        <ul id = "project-list">
-            <li>
-                <input type="text" id="project-name-1" placeholder="project name" required>
-                <button type="button" id="save-button">SAVE</button>
-                <button type="button" id="cancel-button">CANCEL</button>
-            </li>
-        </ul>
-    </form>
-</body>
+    <p>Store all build related information in one place</p>
+        <div class="table-body-flex-container">
+            <form class="project-form-container" id="project-form">
+                <ul class="grid-container-project-items" id="project-list">
+                    <li class="table-row-inputs">
+                        <input class="inputs-data" type="text" id="project-name-1" placeholder="project name" autocomplete="off" required>
+                        <button class="action-buttons" type="button" id="save-button">SAVE</button>
+                        <button class="secondary-action-buttons" type="button" id="cancel-button">CLEAR</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </body>
 </html>

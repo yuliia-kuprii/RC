@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js_files/project-details.js" defer></script>
+    <link rel="stylesheet" href="./css_styles/reset.css">
+    <link rel="stylesheet" href="./css_styles/project-details.css">
+    <title>Project details</title>
+</head>
+<body>
+    <h1>%project_name%</h1>
+    <div class="table-body-flex-container">
+        <form id='project-details-table-wrap-in-form'>
+            <table id="table-project-details">
+                <tbody class="table-body" id="table-tbody">
+                    <tr class="table-row-header" id="head-project-details">
+                    <th>Build Number</th>
+                    <th>Release</th>
+                    <th>Platform</th>
+                    <th>Environment</th>
+                    <th>Link</th>
+                    <th>Build Date</th>
+                    </tr>
+                    <tr class="table-row-inputs" id="row-project-details">
+                        <td>
+                            <input type="text" id="build-number" placeholder="build number" autocomplete="off" required>
+                        </td>
+                        <td>
+                            <input type="text" id="release-number" placeholder="release number" autocomplete="off" required>
+                        </td>
+                        <td>
+                            <input list="platform-options" type="text" id="platform-type" placeholder="platform type" autocomplete="off" required>
+                            <datalist id="platform-options">
+                                <option value="Web"></option>
+                                <option value="iOS"></option>
+                                <option value="Android"></option>
+                            </datalist>
+                        </td>
+                        <td>
+                            <input type="text" id="env-name" placeholder="environment name" autocomplete="off" required>
+                        </td>
+                        <td>
+                            <input type="url" id="build-url" placeholder="http://www.example.com" autocomplete="off" required>
+                        </td>
+                        <td>
+                            <input type="date" id="build-date" name="build-date" required>
+                        </td>
+                        <td>
+                            <button class="action-buttons" type="submit" id="submit-button" disabled>Save</button>
+                        </td>
+                        <td>
+                            <button class="secondary-action-buttons" type="reset" id="reset-button">Clear</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </form>
+    </div>
+    </body>
+</html>
