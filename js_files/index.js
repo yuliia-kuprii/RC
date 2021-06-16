@@ -1,7 +1,7 @@
 const PROJECT_NAME = document.getElementById("project-name-1");
 const UL_LIST = document.getElementById("project-list")
-const SAVE_BUTTON = document.getElementById("save-button");
-const CANCEL_BUTTON = document.getElementById("cancel-button");
+const SUBMIT_BUTTON = document.getElementById("submit-button");
+const RESET_BUTTON = document.getElementById("reset-button");
 PROJECT_NAME.focus();
 actionsMakeWithProjectInput(PROJECT_NAME)
 
@@ -10,8 +10,11 @@ function addListenerToRedirectProjectDetails(projectNameButton) {
     projectNameButton.addEventListener("click", redirectToProjectDetails)
 }
 
-function redirectToProjectDetails() {
-    window.location.href = "./project-details.html"
+
+function redirectToProjectDetails(event) {
+    const input = event.target;
+    const projectName = input.value;
+    window.location.href = "./project-details.html?project_name=" + projectName;
 }
 
 function projectNameChangeToButton(event) {
@@ -115,12 +118,12 @@ function addActionButtons(li){
     const cancelButton = document.createElement("button");
     saveButton.className = "action-buttons";
     cancelButton.className = "secondary-action-buttons";
-    saveButton.type = "button";
-    cancelButton.type = "button";
+    saveButton.type = "submit";
+    cancelButton.type = "reset";
     saveButton.textContent = "SAVE";
     cancelButton.textContent = "CLEAR";
-    saveButton.id = "save-button";
-    cancelButton.id = "cancel-button";
+    saveButton.id = "submit-button";
+    cancelButton.id = "reset-button";
     li.appendChild(saveButton);
     li.appendChild(cancelButton);
     UL_LIST.appendChild(li);
@@ -134,6 +137,8 @@ function createNewProjectId(prevInputId) {
     let projectInputName = `project-name-${newInputIdNumber}`;
     return projectInputName;
 }
+
+
 
 
     

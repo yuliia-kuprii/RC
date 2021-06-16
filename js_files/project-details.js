@@ -1,11 +1,13 @@
 // Find web-elements:
 const ROW_PROJECT_DETAILS = document.getElementById("row-project-details");
+const FORM_WRAPPER = document.getElementById("form-wrapper");
 const ROW_DATA_PROJECT_DETAILS = document.getElementById("row-data-project-details");
 const SAVE_BUTTON = document.getElementById("submit-button");
 const RESET_BUTTON = document.getElementById("reset-button");
 const TABLE_IN_FORM = document.getElementById("project-details-table-wrap-in-form");
 const TABLE = document.getElementById("table-project-details");
 const T_BODY = document.getElementById("table-tbody");
+displayProjectNameOnProjectDetails();
 
 const INPUTS = [
     document.getElementById('build-number'),
@@ -77,20 +79,23 @@ function putInputTextInTextNode(buttonSave){
     const inputValues = getInputValues();
     const tr = document.createElement("tr");
     tr.className = "inputs-data"
+
     for (key in inputValues) {
         const td = document.createElement("td");
         const textNodeValue = document.createTextNode(inputValues[key]);
         td.appendChild(textNodeValue);
         tr.appendChild(td);
-        if (td.innerText.startsWith("http")){
-            const string = td.innerText;
-            td.innerText = "";
+        if (td.innerText.startsWith("http") && tr.children[4]){
             const anchor = document.createElement("a");
+            const text = document.createTextNode("URL");
+            const string = td.innerText;
             anchor.setAttribute('href', string);
-            anchor.innerText = string;
+            td.innerText = "";
+            anchor.appendChild(text);
             td.appendChild(anchor);
         }
     }
+
     const { tdEditButton, tdDeleteButton } = createEditDeleteButtons();
     tr.append(tdEditButton);
     tr.append(tdDeleteButton);
@@ -100,7 +105,6 @@ function putInputTextInTextNode(buttonSave){
 
     resetInputs();
     checkSubmitButtonActive();
-    // return T_BODY;
 }
 
 
@@ -155,4 +159,16 @@ function deleteTableRowWithData(event) {
     const tdDeleteButton = deleteButton.parentElement;
     const tableRowParent = tdDeleteButton.parentElement;
     tableRowParent.remove();
+}
+
+
+function displayProjectNameOnProjectDetails(){
+    const params = new URLSearchParams(document.location.search.substring(1));
+    const projectValue = params.get("project_name");
+    const header = document.createElement("h1")
+    header.id = "project-name-header";
+    const textNodeValue = document.createTextNode(projectValue);
+    document.body.insertBefore(header, document.body.children[0]);
+    header.appendChild(textNodeValue);
+
 }

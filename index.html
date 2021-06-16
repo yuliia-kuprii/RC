@@ -12,15 +12,14 @@
 </head>
     <body>
         <h1>Release Candidate</h1>
-
     <p>Store all build related information in one place</p>
-        <div class="table-body-flex-container">
+        <div id="form-wrapper" class="table-body-flex-container">
             <form class="project-form-container" id="project-form">
                 <ul class="grid-container-project-items" id="project-list">
                     <li class="table-row-inputs">
                         <input class="inputs-data" type="text" id="project-name-1" placeholder="project name" autocomplete="off" required>
-                        <button class="action-buttons" type="button" id="save-button">SAVE</button>
-                        <button class="secondary-action-buttons" type="button" id="cancel-button">CLEAR</button>
+                        <button class="action-buttons" type="submit" id="submit-button">SAVE</button>
+                        <button class="secondary-action-buttons" type="reset" id="reset-button">CLEAR</button>
                     </li>
                 </ul>
             </form>
