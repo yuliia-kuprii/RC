@@ -18,12 +18,17 @@ function redirectToProjectDetails(event) {
 }
 
 function projectNameChangeToButton(event) {
+    const inputField = event.target;
+    const li = inputField.parentElement;
+
     const {input, saveButton, cancelButton} = projectEntityChildren(event);
     actionsMakeWithProjectButtons(saveButton, cancelButton)
     if (event.keyCode === 13 && input.type === "text" && validateInput(input.value)) {
         event.preventDefault();
         actionsForProjectInput(input);
-        removeActionButtons(saveButton, cancelButton);        
+        removeActionButtons(saveButton, cancelButton);
+
+        createEditDeleteButtons(li);
     }
 }
 
@@ -139,7 +144,26 @@ function createNewProjectId(prevInputId) {
 }
 
 
+function createEditDeleteButtons(li) {
+    const editButton = document.createElement("button");
+    // const tdEditTag = document.createElement("td");
+    editButton.className = "action-buttons";
+    editButton.type = "button";
+    editButton.id = "edit-button";
+    editButton.textContent = "Edit";
+    // editButton.addEventListener("click", putInputValueInInputField)
+    
+    const deleteButton = document.createElement("button");
+    // const tdDeleteTag = document.createElement("td");
+    deleteButton.className = "secondary-action-buttons";
+    deleteButton.type = "button";
+    deleteButton.id = "delete-button";
+    deleteButton.textContent = "Delete";
+    // deleteButton.addEventListener("click", deleteTableRowWithData);
 
+    li.appendChild(editButton);
+    li.appendChild(deleteButton);
+}
 
     
 
