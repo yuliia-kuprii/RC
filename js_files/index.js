@@ -6,10 +6,14 @@ PROJECT_NAME.focus();
 actionsMakeWithProjectInput(PROJECT_NAME)
 
 
+
 function addListenerToRedirectProjectDetails(projectNameButton) {
     projectNameButton.addEventListener("click", redirectToProjectDetails)
 }
 
+function removeListenerToRedirectProjectDetails(projectNameButton) {
+    projectNameButton.removeEventListener("click", redirectToProjectDetails)
+}
 
 function redirectToProjectDetails(event) {
     const input = event.target;
@@ -20,23 +24,24 @@ function redirectToProjectDetails(event) {
 function projectNameChangeToButton(event) {
     const inputField = event.target;
     const li = inputField.parentElement;
-
     const {input, saveButton, cancelButton} = projectEntityChildren(event);
     actionsMakeWithProjectButtons(saveButton, cancelButton)
     if (event.keyCode === 13 && input.type === "text" && validateInput(input.value)) {
         event.preventDefault();
         actionsForProjectInput(input);
         removeActionButtons(saveButton, cancelButton);
-
         createEditDeleteButtons(li);
     }
 }
 
 function saveProjectNameWithButton(event){
+    const save = event.target;
+    const li = save.parentElement;
     const {input, saveButton, cancelButton} = projectEntityChildren(event);
     if (input.type === "text" && validateInput(input.value)) {
         actionsForProjectInput(input);
         removeActionButtons(saveButton, cancelButton);
+        createEditDeleteButtons(li); 
     }
 }
 
@@ -114,11 +119,11 @@ function addNewProjectName(prevInputId) {
     UL_LIST.appendChild(li);
     li.appendChild(input);
     actionsMakeWithProjectInput(input);
-    addActionButtons(li);
+    addSaveCancelButtons(li);
     return input;
 }
 
-function addActionButtons(li){
+function addSaveCancelButtons(li){
     const saveButton = document.createElement("button");
     const cancelButton = document.createElement("button");
     saveButton.className = "action-buttons";
@@ -131,7 +136,6 @@ function addActionButtons(li){
     cancelButton.id = "reset-button";
     li.appendChild(saveButton);
     li.appendChild(cancelButton);
-    UL_LIST.appendChild(li);
 }
 
 function createNewProjectId(prevInputId) {
@@ -146,24 +150,45 @@ function createNewProjectId(prevInputId) {
 
 function createEditDeleteButtons(li) {
     const editButton = document.createElement("button");
-    // const tdEditTag = document.createElement("td");
     editButton.className = "action-buttons";
     editButton.type = "button";
     editButton.id = "edit-button";
     editButton.textContent = "Edit";
-    // editButton.addEventListener("click", putInputValueInInputField)
+    editButton.addEventListener("click", editProjectName)
     
     const deleteButton = document.createElement("button");
-    // const tdDeleteTag = document.createElement("td");
     deleteButton.className = "secondary-action-buttons";
     deleteButton.type = "button";
     deleteButton.id = "delete-button";
     deleteButton.textContent = "Delete";
-    // deleteButton.addEventListener("click", deleteTableRowWithData);
+    deleteButton.addEventListener("click", deleteProjectName);
+
 
     li.appendChild(editButton);
     li.appendChild(deleteButton);
 }
 
-    
+function deleteProjectName(event){
+    const deleleButton = event.target;
+    const parent = deleleButton.parentElement;
+    parent.remove();
+}
 
+function editProjectName(event) {
+    const editButton = event.target;
+    const deleteButton = editButton.nextSibling;
+    const li = editButton.parentElement;
+    const allChildren = li.children;
+    const ul = li.parentElement;
+    const emptyInput = ul.lastChild;
+    if (allChildren[0].type === "button") {
+        allChildren[0].type = "text";
+        removeActionButtons(editButton, deleteButton);
+        addSaveCancelButtons(li);
+        emptyInput.remove();
+        allChildren[0].focus();
+        const length = allChildren[0].value.length;
+        allChildren[0].setSelectionRange(length, length);
+        removeListenerToRedirectProjectDetails(allChildren[0]);
+    }
+}

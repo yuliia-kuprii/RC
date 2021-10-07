@@ -7,6 +7,7 @@ const RESET_BUTTON = document.getElementById("reset-button");
 const TABLE_IN_FORM = document.getElementById("project-details-table-wrap-in-form");
 const TABLE = document.getElementById("table-project-details");
 const T_BODY = document.getElementById("table-tbody");
+
 displayProjectNameOnProjectDetails();
 
 const INPUTS = [
@@ -106,7 +107,6 @@ function putInputTextInTextNode(buttonSave){
     resetInputs();
     checkSubmitButtonActive();
 }
-
 
 function createEditDeleteButtons() {
     const editButton = document.createElement("button");
